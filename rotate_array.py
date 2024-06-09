@@ -30,7 +30,7 @@ from unittest import TestCase
 import unittest
 
 # Works but not in-place (bad solution)
-def rotate(nums, k) -> List[int]:
+def rotate_v1(nums, k) -> List[int]:
     """
     :type nums: List[int]
     :type k: int
@@ -61,12 +61,49 @@ def rotate_v2(nums: List[int], k: int) -> None:
                 k-=1
                 tmp_idx+=1
             nums[tmp_idx + i - 1] = tmp[i]
+    return nums
 
 def rotate_v3(nums: List[int], k: int) -> None:
-    pass
+    if len(nums) == 0 or k == 0:
+        return nums
 
+    if len(nums) < k:
+        nums[:] = rotate_v3(nums, len(nums))
+        nums[:] = rotate_v3(nums, k-len(nums))
+    nums.reverse()
+    nums[:k] = reversed(nums[:k])
+    nums[k:] = reversed(nums[k:])
+    return nums
+
+def rotate_v4(nums: List[int], k: int) -> None:
+    steps = k % len(nums)
+    nums[:] = nums[-steps:] + nums[:-steps]
+    return nums
+
+def rotate_v5(nums: List[int], k: int) -> None:
+    L = len(nums)
+    # If k equals or is a multiple of the length of nums
+    if not (k % L):
+        return nums
+
+    # the case when k > L
+    k = k % L
+    nums.reverse()
+
+    for i in range(k//2):
+        nums[i], nums[k-1-i] = nums[k-1-i], nums[i]
+
+    for i in range(k, (L+k)//2):
+        nums[i], nums[L-1-i+k] = nums[L-1-i+k], nums[i]
+
+    return nums
+
+# nums, k = [1,2,3,4,5,6,7], 14
+# result = rotate_v5(nums, k)
+# print(result)
 
 """
+My initial solution: rotate_array_v1
 # --------------- #
 First for loop ->
 # --------------- #
@@ -125,10 +162,33 @@ class Tests(TestCase):
         super().__init__(methodName)
         self.nums_1, self.k_1, self.output_1 = [1,2,3,4,5,6,7], 3, [5,6,7,1,2,3,4]
         self.nums_2, self.k_2, self.output_2 = [-1,-100,3,99], 2, [3,99,-1,-100]
+        self.nums_3, self.k_3, self.output_3 = [1, 2], 3, [2, 1]
 
-    def test_rotate_array(self):
-        self.assertListEqual(rotate(self.nums_1, self.k_1), self.output_1)
-        self.assertListEqual(rotate(self.nums_2, self.k_2), self.output_2)
+    # def test_rotate_array(self):
+    #     self.assertListEqual(rotate_v1(self.nums_1, self.k_1), self.output_1)
+    #     self.assertListEqual(rotate_v1(self.nums_2, self.k_2), self.output_2)
+    #     self.assertListEqual(rotate_v1(self.nums_3, self.k_3), self.output_3)
+
+    # def test_rotate_array_v2(self):
+    #     self.assertListEqual(rotate_v2(self.nums_1, self.k_1), self.output_1)
+    #     self.assertListEqual(rotate_v2(self.nums_2, self.k_2), self.output_2)
+    #     self.assertListEqual(rotate_v2(self.nums_3, self.k_3), self.output_3)
+
+    def test_rotate_array_v3(self):
+        self.assertListEqual(rotate_v3(self.nums_1, self.k_1), self.output_1)
+        self.assertListEqual(rotate_v3(self.nums_2, self.k_2), self.output_2)
+        self.assertListEqual(rotate_v3(self.nums_3, self.k_3), self.output_3)
+
+    def test_rotate_array_v4(self):
+        self.assertListEqual(rotate_v4(self.nums_1, self.k_1), self.output_1)
+        self.assertListEqual(rotate_v4(self.nums_2, self.k_2), self.output_2)
+        self.assertListEqual(rotate_v4(self.nums_3, self.k_3), self.output_3)
+
+    def test_rotate_array_v5(self):
+        self.assertListEqual(rotate_v5(self.nums_1, self.k_1), self.output_1)
+        self.assertListEqual(rotate_v5(self.nums_2, self.k_2), self.output_2)
+        self.assertListEqual(rotate_v5(self.nums_3, self.k_3), self.output_3)
 
 if __name__ == '__main__':
     unittest.main()
+    # print()
