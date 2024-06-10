@@ -32,30 +32,31 @@ Constraints:
 0 <= prices[i] <= 104
 """
 
-def maxProfit(prices):
-    """
-    :type prices: List[int]
-    :rtype: int
-    """
-    min_price = prices[0]
-    max_profit = 0
-    total = 0
+# def maxProfit_v1(prices):
+#     """
+#     :type prices: List[int]
+#     :rtype: int
+#     """
+#     min_price = prices[0]
+#     max_profit = 0
 
-    for i in range(1, len(prices)):
-        print(f"Iteration: {i}")
-        print(min_price)
-        print(max_profit)
-        print(total)
+#     for i in range(1, len(prices)):
+#         if prices[i] > min_price:
+#             max_profit += prices[i] - min_price
+#         min_price = prices[i]
+#     return max_profit
 
-        if prices[i] < min_price:
-            min_price = prices[i]
-        elif prices[i] - min_price > max_profit:
-            max_profit = prices[i] - min_price
-            total += max_profit
-        if total > 0 and total == max_profit and i < len(prices) - 1:
-            min_price = prices[i + 1]
-            max_profit = 0
-    return total
+def maxProfit_v2(prices):
+    p_max = 0 # accumulates max profit throughout iterations
+    p_start = prices[0] # price of stock on day 1
+    p_len = len(prices) # represents the total number of days
+
+    for i in range(1, p_len):
+        if prices[i] > p_start:
+            p_max += prices[i] - p_start
+        p_start = prices[i]
+    return p_max
 
 prices = [7,1,5,3,6,4]
-maxProfit(prices)
+r = maxProfit_v2(prices)
+print(r)
