@@ -1,10 +1,10 @@
 # C++ Testing Artifacts
-build/*
-CMakeLists.txt
+cpp/build/*
+cpp/CMakeLists.txt
 
 # Scripts
-build.sh
-tests.sh
+cpp/build.sh
+cpp/tests.sh
 
 # Other
-note.md
+cpp/note.md
