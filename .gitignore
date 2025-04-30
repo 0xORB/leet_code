@@ -1,0 +1,10 @@
+# C++ Testing Artifacts
+build/*
+CMakeLists.txt
+
+# Scripts
+build.sh
+tests.sh
+
+# Other
+note.md
