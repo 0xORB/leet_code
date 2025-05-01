@@ -1,6 +1,8 @@
 # C++ Testing Artifacts
 cpp/build/*
 cpp/CMakeLists.txt
+cpp/compile_commands.json
+cpp/.cache/*
 
 # Scripts
 cpp/build.sh
