@@ -5,8 +5,11 @@ cpp/compile_commands.json
 cpp/.cache/*
 
 # Scripts
-cpp/build.sh
+cpp/run.sh
 cpp/tests.sh
+
+# C++ Experimental Code
+cpp/exp.cpp
 
 # Other
 cpp/note.md
