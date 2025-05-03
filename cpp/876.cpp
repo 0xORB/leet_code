@@ -29,8 +29,6 @@ The number of nodes in the list is in the range [1, 100].
 */
 
 #include <gtest/gtest.h>
-#include <iostream>
-#include <vector>
 
 using namespace std;
 
