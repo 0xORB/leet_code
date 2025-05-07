@@ -13,5 +13,6 @@ go/init.sh
 # C++ Experimental Code
 cpp/exp.cpp
 
-# Other
+# Notes
 cpp/note.md
+go/note.md
