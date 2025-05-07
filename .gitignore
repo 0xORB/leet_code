@@ -8,6 +8,7 @@ cpp/.cache/*
 cpp/run.sh
 cpp/tests.sh
 go/tests.sh
+go/init.sh
 
 # C++ Experimental Code
 cpp/exp.cpp
