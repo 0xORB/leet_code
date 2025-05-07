@@ -6,45 +6,37 @@ import (
 	"testing"
 )
 
-type problemNUM struct {
-	actualNUM
-	expectedNUM
-}
-
-type actualNUM struct {
-	nums []int
-}
-
-type expectedNUM struct {
-	nums []int
-}
-
 func Test_ProblemNUM(t *testing.T) {
-	cases := []problemNUM{
+	cases := []struct {
+		input    []int
+		expected []int
+	}{
 		{
-			actualNUM{[]int{1, 2, 3, 4}},
-			expectedNUM{[]int{1, 3, 6, 10}},
+			[]int{1, 2, 3, 4},
+			[]int{1, 3, 6, 10},
 		},
 		{
-			actualNUM{[]int{1, 1, 1, 1, 1}},
-			expectedNUM{[]int{1, 2, 3, 4, 5}},
+			[]int{1, 1, 1, 1, 1},
+			[]int{1, 2, 3, 4, 5},
 		},
 		{
-			actualNUM{[]int{3, 1, 2, 10, 1}},
-			expectedNUM{[]int{3, 4, 6, 16, 17}},
+			[]int{3, 1, 2, 10, 1},
+			[]int{3, 4, 6, 16, 18},
 		},
 	}
 
-	fmt.Printf("------------------------Leetcode Problem NUM------------------------\n")
+	fmt.Printf("------------------------Leetcode Problem <NUM>------------------------\n")
 
 	for _, c := range cases {
-		result := placeHolder(c.actualNUM.nums)
-
-		if !utils.EqualSlice(result, c.expectedNUM.nums) {
-			t.Errorf(
-				"【input】:%v   【output】:%v   【Expected】:%v   \n",
-				c.actualNUM.nums, result, c.expectedNUM.nums)
-		}
+		t.Run("Problem<NUM>-"+fmt.Sprintf("%v", c.input), func(t *testing.T) {
+			result := placeHolder(c.input)
+			if !utils.EqualSlice(result, c.expected) {
+				t.Errorf(
+					"\n【input】\t-> %v \n【Got】\t-> %v \n【Expected】-> %v \n\n",
+					c.input, result, c.expected)
+			}
+		})
 	}
-	fmt.Printf("\n")
 }
+
+func placeHolder(p []int) []int { return p }
