@@ -1,7 +1,7 @@
 package utils
 
 // Capitalize function name to make it public
-func EqualSlice(a, b []int) bool {
+func EqualSlice[T comparable](a, b []T) bool {
 	if len(a) != len(b) {
 		return false
 	}
